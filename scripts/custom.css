@@ -1,0 +1,187 @@
+#__ch_menu_area {
+  position: fixed;
+  top: 70px;
+  right: 30px;
+  z-index: 1;
+}
+
+.ch_ha_setting {
+  background-color: #071f34e0;
+  padding: 10px;
+  border-radius: 20px;
+}
+.ch_ha_setting > p {
+  padding: 0px 20px;
+  font-size: 16px;
+  color: white;
+}
+
+div.configuration_area{
+  width: 225px;
+  padding: 0px 20px 10px 20px;
+}
+div.configuration_area input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+}
+div.configuration_area p {
+  color: white;
+  vertical-align: middle;
+}
+div.configuration_area label {
+  vertical-align: super;
+  margin-left: 10px;
+  font-size: 16px;
+}
+.google_sheet_area.disabled {
+  display: none;
+}
+.btnc{
+  width: 100%;
+  margin-top: 10px;
+  min-height: 31px;
+  text-align: center;
+  font-size: 14px;
+  text-decoration: none;
+  font-weight: 700;
+  border: 0;
+  cursor: pointer;
+  border-radius: 5px;
+  padding: 0px 10px;
+  line-height: 31px;
+  background-color: #e6e9ec;
+}
+
+.btnc:hover {
+  background-color: #32ffe2;
+}
+
+li.item-block.gallery .ch_auction_item_container  {
+  margin-top: 10px;
+  text-align: center;
+}
+
+li.item-block.list .ch_auction_item_container  {
+  position: absolute;
+  bottom: 12px;
+  left: 155px;
+}
+
+
+@media screen and  (max-width: 767px) {
+  li.item-block.list .ch_auction_item_container  {
+    position: relative;
+    width: 100%;
+    bottom: auto;
+    top:auto;
+    right: auto;
+    left: auto;
+  }
+}
+
+div.ch_add_item {
+  background-color: #20639e;
+  color: white;
+  padding: 0px 20px;
+}
+
+div.ch_remove_item {
+  background-color: #f7481d;
+  color: white;
+  padding: 0px 20px;
+}
+
+div.ch_add_item span.add, div.ch_remove_item span.remove {
+  display: inline-block;
+}
+div.ch_remove_item span.add, div.ch_add_item span.remove {
+  display: none;
+}
+
+button.close_action {
+  background: none;
+  float: right;
+  border-radius: 50%;
+  border: 1px solid white;
+  width: 28px;
+  height: 28px;
+  margin-right: 20px;
+  margin-top: -6px;
+}
+
+.btnc.disabled{
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.btn-circle.btn-sm {
+  width: 50px;
+  height: 50px;
+  padding: 6px 0px;
+  border-radius: 50%;
+  border: 1px solid #50b748;
+  opacity: 0.8;
+  text-align: center;
+  position: relative;
+  background-position: center;
+  font-size: 28px;
+  color: azure;
+  background-color: #199007;
+}
+
+#ch_google_sheet_url:hover{
+  width: 800px;
+  margin-left: -620px;
+
+}
+#ch_google_sheet_url:focus {
+  border: none;
+  outline: none;
+}
+.ch_link{
+  padding: 6px 9px 9px 6px;
+  color: white;
+  text-decoration: none;
+}
+._CC {
+  background-color: firebrick;
+  margin-bottom: 15px;
+  color: white;
+}
+._CC:hover {
+  background-color: #1f96db;
+}
+
+a.ch_goto_sheet {
+  position: absolute;
+  border-radius: 0px 20px 20px 0;
+  border: 0px;
+  height: 31px;
+  top: 315px;
+  right: 15px;
+  background-color: #50b950;
+}
+
+a.ch_goto_sheet:hover {
+  background-color: #2e6da4;
+}
+.ch_error_message{
+  color: white;
+  text-align: center;
+}
+.btn-circle:hover{
+  opacity: 1;
+}
+.selected_auction {
+  animation: flasher_red 2s linear infinite;
+}
+
+@keyframes flasher_red {
+  0%,
+  100% {
+    box-shadow: none;
+  }
+  50% {
+    box-shadow: 0 0 10px #ff0000;
+  }
+}

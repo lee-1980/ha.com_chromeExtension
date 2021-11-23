@@ -1,0 +1,54 @@
+{
+  "name": "__HP_exporter__",
+  "description": "__HA_Exporter__",
+  "icons": {
+    "128": "images/logo.png",
+    "48": "images/logo.png"
+  },
+  "manifest_version": 2,
+  "content_scripts": [
+    {
+      "css": [
+        "scripts/custom.css"
+      ],
+      "js": [
+        "scripts/jQuery3.5.1.js",
+        "scripts/xlsx.full.min.js",
+        "scripts/bootstrap.min.js",
+        "scripts/main.js"
+      ],
+      "matches": [
+        "*://*.ha.com/*"
+      ],
+      "all_frames": true,
+      "run_at": "document_end"
+    }
+  ],
+  "permissions": [
+    "declarativeContent",
+    "tabs",
+    "http://ha.com/*",
+    "https://ha.com/*",
+    "downloads",
+    "notifications",
+    "storage",
+    "identity",
+    "https://docs.google.com/spreadsheets/"
+  ],
+  "oauth2": {
+    "client_id": "893362421449-mepcg0uk6t17v62gark821v0755ft08c.apps.googleusercontent.com",
+    "scopes": [
+      "https://www.googleapis.com/auth/spreadsheets",
+      "https://www.googleapis.com/auth/drive",
+      "https://www.googleapis.com/auth/drive.readonly",
+      "https://www.googleapis.com/auth/drive.file",
+      "https://www.googleapis.com/auth/spreadsheets.readonly"
+    ]},
+  "background": {
+    "scripts": ["scripts/background.js"],
+    "persistent": true
+  },
+  "content_security_policy": "script-src 'self' 'unsafe-eval' https://apis.google.com/; object-src 'self'",
+  "web_accessible_resources" : ["scripts/custom.css"],
+  "version": "1.0"
+}
