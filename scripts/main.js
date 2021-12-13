@@ -10,9 +10,7 @@ const domContentEmb = {
       '<div><button type="button" class="btnc btn-block _CC disabled" id="ch_clear"> Reset</button></div>' +
       '<p><input type="checkbox" class="ch_select ch_excel" value="ch_excel"> <label>Save as Excel</label></p>' +
       '<p><input type="checkbox" class="ch_select ch_csv" value="ch_csv"> <label>Save as CSV</label></p>' +
-      '<p><input type="checkbox" class="ch_select ch_google_drive" value="ch_google_drive"> <label>Save to Google Drive</label></p>' +
-      '<div class="google_sheet_area"><input type="text" class="form-control btnc" style="margin-top: 10px" id="ch_google_sheet_url" placeholder="Write Google Sheet URL...">' +
-      '<p class="ch_error_message"></p></div>' +
+      '</div>' +
       '<div><button type="button" class="btnc btn-block _CH disabled" id="ch_export">Export</button></div>' +
       '</div></div></div>';
   },
@@ -131,7 +129,7 @@ const exporterDropdown = {
           $('.ch_select:checked').each((i,e) => {
             selected.push($(e).val());
           });
-          chrome.storage.sync.set({
+          chrome.storage.local.set({
             'ch_ha_selected_options': selected
           }, function() {
             // console.log(selected);
@@ -156,7 +154,7 @@ const exporterDropdown = {
           if($('input.ch_csv').is(':checked')){
             let data = await exporterDropdown.data();
             data = header.concat(data);
-            console.log(data.map(e => e.join(",")).join("\r\n"));
+            // console.log(data.map(e => e.join(",")).join("\r\n"));
             let blob_data = new TextEncoder('utf-16be').encode(data.map(e => e.join(",")).join("\r\n"));
 
             // create a Blob object for the download
@@ -178,7 +176,7 @@ const exporterDropdown = {
           }
 
           if($('input.ch_google_drive').is(':checked')){
-            chrome.storage.sync.get(['ch_ha_sheet_url'],async function(storageObject) {
+            chrome.storage.local.get(['ch_ha_sheet_url'],async function(storageObject) {
               try{
                 let data = await exporterDropdown.data();
                 data = header.concat(data);
@@ -249,7 +247,7 @@ const exporterDropdown = {
     return new Promise((resolve, reject) => {
       this.status = true;
       $('.menu_ha_ch_icon').removeClass('selected_auction');
-      chrome.storage.sync.get(['ch_ha_sheet_url', 'ch_ha_selected_options'], function(storageObject) {
+      chrome.storage.local.get(['ch_ha_sheet_url', 'ch_ha_selected_options'], function(storageObject) {
         if(storageObject.hasOwnProperty('ch_ha_sheet_url')){
           $('#ch_google_sheet_url').val(storageObject.ch_ha_sheet_url);
           $('.ch_error_message').text('Valid URL');
@@ -268,7 +266,7 @@ const exporterDropdown = {
   },
   data: ()=>{
     return new Promise((resolve, reject) => {
-      chrome.storage.sync.get(['ch_ha_selected_rows'], function(storageObject) {
+      chrome.storage.local.get(['ch_ha_selected_rows'], function(storageObject) {
         if(storageObject.hasOwnProperty('ch_ha_selected_rows')){
           resolve(storageObject.ch_ha_selected_rows);
         }
@@ -279,7 +277,7 @@ const exporterDropdown = {
     })
   },
   update_storage_data: (new_data) => {
-    chrome.storage.sync.set({
+    chrome.storage.local.set({
       'ch_ha_selected_rows': new_data
     }, function() {
       console.log('save');
@@ -300,15 +298,19 @@ const exporterDropdown = {
     $('.ch_select:checked').each((i, e) => {
       selected.push($(e).val());
     });
+    if(data.length){
+      $('._CC').removeClass('disabled');
+    }
+    else{
+      $('._CC').addClass('disabled');
+    }
     if(data.length && selected.length){
       $('.menu_ha_ch_icon').addClass('selected_auction');
       $('._CH').removeClass('disabled');
-      $('._CC').removeClass('disabled');
     }
     else{
       $('.menu_ha_ch_icon').removeClass('selected_auction');
       $('._CH').addClass('disabled');
-      $('._CC').addClass('disabled');
     }
 
     if($('.ch_google_drive').prop('checked') == true){
@@ -341,7 +343,7 @@ const exporterDropdown = {
         let spreadsheetId = new RegExp("/spreadsheets/d/([a-zA-Z0-9-_]+)").exec(sheetURL)[1];
         if(spreadsheetId){
           if( _step !== 'start'){
-            chrome.storage.sync.set({
+            chrome.storage.local.set({
               'ch_ha_sheet_url': sheetURL
             }, function() {
               // console.log('save');
